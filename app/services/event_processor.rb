@@ -17,6 +17,8 @@ class EventProcessor < ApplicationService
         
       odds = Odds.find_or_initialize_by(event_id: event.id, bookmaker_id: @bookmaker.id)
       odds.update(odds_params(@data[:outcomes]))
+
+      event.set_top_odds
     end
   end
 

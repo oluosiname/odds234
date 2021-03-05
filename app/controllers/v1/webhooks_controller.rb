@@ -16,5 +16,4 @@ class V1::WebhooksController < ApplicationController
   rescue
     render status: 500
   end
-
 end
