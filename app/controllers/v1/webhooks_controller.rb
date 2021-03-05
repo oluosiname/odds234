@@ -13,7 +13,7 @@ class V1::WebhooksController < ApplicationController
     end
     
     render status: :ok
-  rescue
+  rescue => e
     render status: 500
   end
 end

@@ -6,7 +6,7 @@ class EventProcessor < ApplicationService
   end
 
   def call
-    ActiveRecord::Base.transaction do
+    result = ActiveRecord::Base.transaction do
       event = Event.find_or_initialize_by(
         competition_id: @competition_id,
         home_team: @data[:home_team],
@@ -20,6 +20,7 @@ class EventProcessor < ApplicationService
 
       event.set_top_odds
     end
+    { success: result }
   end
 
   private
