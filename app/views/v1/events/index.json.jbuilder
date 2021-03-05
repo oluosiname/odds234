@@ -1,5 +1,5 @@
 json.array! @events do |competition, events|
-  json.competition competition
+  json.competition competition.name
   json.events events do |event|
     json.uid event.uid
     json.home_team event.home_team
@@ -7,6 +7,6 @@ json.array! @events do |competition, events|
     json.top_odds event.top_odds
     json.starts_at event.starts_at
     json.kickoff event.starts_at.strftime("%H:%M")
-    json.date event.starts_at.strftime("%-d %b")
+    json.date event.true_date
   end
 end

@@ -27,4 +27,10 @@ class Event < ApplicationRecord
   def competition_name
     competition.name
   end
+
+  def true_date
+    return "Today" if starts_at.to_date == Date.today 
+    
+    starts_at.strftime("%-d %b")
+  end
 end
