@@ -15,7 +15,7 @@ comps = [
 
 comps.each do |comp|
   c = Competition.find_or_initialize_by(name: comp[:name], country: comp[:country])
-  c.update(priority: comp[:priority]) unless comp.persisted?
+  c.update(priority: comp[:priority]) unless c.persisted?
 end
 
 bookmakers = ["bet9ja", "nairabet"]
