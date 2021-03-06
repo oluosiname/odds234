@@ -14,6 +14,7 @@ class V1::WebhooksController < ApplicationController
     
     render status: :ok
   rescue => e
-    render status: 500
+    puts e
+    render json: {error: e}, status: 500
   end
 end
