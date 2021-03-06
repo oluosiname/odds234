@@ -1,0 +1,6 @@
+{
+  "name": "odds234",
+  "scripts": {
+    "postdeploy": "bundle exec rake db:migrate"
+  }
+}
