@@ -5,3 +5,20 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+comps = [
+  name: "bundesliga", country: "germany", priority: 4,
+  name: "premier league", country: "england", priority: 1,
+  name: "la liga", country: "spain", priority: 3,
+  name: "ligue 1", country: "france", priority: 5,
+  name: "serie a", country: "italy", priority: 2  
+]
+
+comps.each do |comp|
+  c = Competition.find_or_initialize_by(name: comp.name, country: comp.country)
+  c.update(priority: comp.priority) unless comp.persisted?
+end
+
+bookmakers = ["bet9ja", "nairabet"]
+bookmakers.each do |bookmaker|
+  Bookmaker.create(name: bookmaker)
+end
