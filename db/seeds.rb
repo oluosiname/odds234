@@ -20,5 +20,5 @@ end
 
 bookmakers = ["bet9ja", "nairabet"]
 bookmakers.each do |bookmaker|
-  Bookmaker.create(name: bookmaker)
+  Bookmaker.find_or_create_by(name: bookmaker)
 end

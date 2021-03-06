@@ -6,7 +6,7 @@ class V1::WebhooksController < ApplicationController
     events.each do |eventObject|
       competition = Competition.find_by(name: eventObject[:competition])
       next unless competition
-
+      puts "I got here"
       eventObject[:data].each do |data|
         ::EventProcessor.call(data: data, competition_id: competition.id, bookmaker: bookmaker)
       end
@@ -14,6 +14,6 @@ class V1::WebhooksController < ApplicationController
     
     render status: :ok
   rescue => e
-    render status: 500
+    render json: {error: e}, status: 500
   end
 end

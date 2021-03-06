@@ -1,5 +1,6 @@
 class EventProcessor < ApplicationService
   def initialize(data: , competition_id: ,bookmaker: )
+    puts "I got here"
     @competition_id = competition_id
     @data = data
     @bookmaker = bookmaker
@@ -20,7 +21,14 @@ class EventProcessor < ApplicationService
 
       event.set_top_odds
     end
+
+    puts "transaction result"
+    puts result
     { success: result }
+  rescue => e
+    puts e
+    puts "whatever"
+    raise e
   end
 
   private
