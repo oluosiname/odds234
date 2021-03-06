@@ -19,14 +19,12 @@ class V1::EventsController < ApplicationController
   private
 
   def authenticate
-    return head :unauthorized unless ActiveSupport::SecurityUtils.secure_compare(token, Rails.application.credentials.api_key)
+    return head :unauthorized unless token
+    
+    ActiveSupport::SecurityUtils.secure_compare(token, Rails.application.credentials.api_key)
   end
 
   def token
-    if request.headers['Authorization'].present?
-      return request.headers['Authorization'].split(' ').last
-    else
-      return head :unauthorized
-    end
+    return request.headers['Authorization'].split(' ').last if request.headers['Authorization'].present?
   end
 end
