@@ -3,7 +3,7 @@ class V1::EventsController < ApplicationController
     relation = Event.includes(:competition).future
     relation = relation.by_date(params[:date]) if params[:date]
     relation = relation.by_country(params[:country]) if params[:country]
-    relation = relation.by_country(params[:competition]) if params[:competition]
+    relation = relation.by_competition(params[:competition]) if params[:competition]
 
     @events = relation.all.group_by(&:competition).sort_by{|competition, _extras| competition.priority }
   end
