@@ -7,8 +7,12 @@ class Competition < ApplicationRecord
     return unless priority_changed?
 
     before_priority, after_priority = self.priority_change
-    
-    if before_priority < after_priority
+
+    if !before_priority
+      Competition.where("priority > ?", after_priority).where.not(id: id).each do |competition|
+        competition.update_columns(priority: (competition.priority - 1))
+      end
+    elsif before_priority < after_priority
       Competition.where(priority: (before_priority..after_priority)).where.not(id: id).each do |competition|
         competition.update_columns(priority: (competition.priority - 1))
       end
