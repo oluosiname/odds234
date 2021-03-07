@@ -6,7 +6,9 @@ if @event
       json.top_odds @event.top_odds
       json.starts_at @event.starts_at
       json.kickoff @event.starts_at.strftime("%H:%M")
-      json.date @event.true_date
+      json.date @event.true_date.strftime("%-d %b %y")
+      json.country @event.competition.country
+      json.competition @event.competition_name
       json.odds @event.odds do |odds|
         json.bookmaker odds.bookmaker.name
         json.home odds.home
