@@ -18,7 +18,7 @@ comps.each do |comp|
   c.update(priority: comp[:priority]) unless c.persisted?
 end
 
-bookmakers = ["bet9ja", "nairabet", "betking"]
+bookmakers = ["bet9ja", "nairabet", "betking", "sportybet"]
 bookmakers.each do |bookmaker|
   Bookmaker.find_or_create_by(name: bookmaker)
 end
