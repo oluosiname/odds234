@@ -4,6 +4,9 @@ class Event < ApplicationRecord
   belongs_to :competition
   has_many :odds, dependent: :destroy
 
+  validates :home_team, presence: true
+  validates :away_team, presence: true
+
   scope :future, -> { where("starts_at > ?", Time.now).order(:starts_at) }
 
   scope :by_competition, -> (competition_name){
