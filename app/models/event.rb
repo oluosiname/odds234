@@ -17,6 +17,10 @@ class Event < ApplicationRecord
     joins(:competition).where("LOWER(competitions.country) =  ?", country.downcase)
   }
 
+  scope :by_team, -> (search){
+    where("LOWER(home_team) LIKE  ? OR LOWER(away_team) LIKE ?", "%#{search.downcase}%", "%#{search.downcase}%")
+  }
+
   scope :by_date, -> (date) { where("DATE(starts_at) = ?",date) }
 
   def set_top_odds
