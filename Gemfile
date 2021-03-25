@@ -18,6 +18,7 @@ gem 'puma', '~> 5.0'
 gem "sidekiq"
 gem 'sidekiq-scheduler'
 gem 'rollbar'
+gem 'aws-sdk-lambda'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'

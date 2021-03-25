@@ -1,5 +1,9 @@
 :schedule:
-  clear_events_2:
+  clear_events:
     cron: 0 0 1 * * ?
     class: ClearEventsWorker
+    enabled: true
+  reset_events:
+    cron: 0 0 1 1/2 * ?
+    class: ResetEventsWorker
     enabled: true
