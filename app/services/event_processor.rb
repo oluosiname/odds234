@@ -13,8 +13,8 @@ class EventProcessor < ApplicationService
         away_team: @data[:away_team]
       )
 
-      event.update(event_params) unless event.persisted?
-        
+      event.update(event_params)
+
       odds = Odds.find_or_initialize_by(event_id: event.id, bookmaker_id: @bookmaker.id)
       odds.update(odds_params(@data[:outcomes]))
 
