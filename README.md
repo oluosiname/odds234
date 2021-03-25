@@ -1,24 +1,25 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Requirements
 
-Things you may want to cover:
+- Ruby 3.0.0
 
-* Ruby version
+- Rails
 
-* System dependencies
+- Postgres
 
-* Configuration
+## Setup
 
-* Database creation
+- Clone Repository
 
-* Database initialization
+### Create Datatbase
 
-* How to run the test suite
+`rails db:create`
 
-* Services (job queues, cache servers, search engines, etc.)
+### Migration
 
-* Deployment instructions
+`rails db:migrate`
 
-* ...
+## Tests
+
+`bundle exec rspec spec`
