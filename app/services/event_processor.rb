@@ -6,6 +6,9 @@ class EventProcessor < ApplicationService
   end
 
   def call
+    if @data[:home_team].blank? || @data[:away_team].blank?
+      return { success: false }
+    end
     result = ActiveRecord::Base.transaction do
       event = Event.find_or_initialize_by(
         competition_id: @competition_id,
@@ -43,5 +46,7 @@ class EventProcessor < ApplicationService
   def starts_at(date, time)
     dateString = date == 'today' ? Date.today : "#{date}.#{Date.today.year}"
     DateTime.parse("#{dateString} #{time}")
+  rescue => e
+    binding.pry
   end
 end
