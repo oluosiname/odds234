@@ -2,6 +2,6 @@ class ClearEventsWorker
   include Sidekiq::Worker
 
   def perform(*args)
-    StaleEventsCleaner.call
+    Event.past.destroy_all
   end
 end

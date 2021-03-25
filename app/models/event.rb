@@ -9,6 +9,8 @@ class Event < ApplicationRecord
 
   scope :future, -> { where("starts_at > ?", Time.now).order(:starts_at) }
 
+  scope :past, -> { where("starts_at < ?", 2.days.ago) }
+
   scope :by_competition, -> (competition_name){
     joins(:competition).where("LOWER(competitions.name) =  ?", competition_name.downcase)
   }
@@ -36,8 +38,8 @@ class Event < ApplicationRecord
   end
 
   def true_date
-    return "Today" if starts_at.to_date == Date.today 
-    
+    return "Today" if starts_at.to_date == Date.today
+
     starts_at.strftime("%-d %b")
   end
 end
