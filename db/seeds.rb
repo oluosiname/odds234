@@ -10,7 +10,9 @@ comps = [
   {name: "premier league", country: "england", priority: 1},
   {name: "la liga", country: "spain", priority: 3},
   {name: "ligue 1", country: "france", priority: 5},
-  {name: "serie a", country: "italy", priority: 2}  
+  {name: "serie a", country: "italy", priority: 2},
+  {name: "champions league", country: "europe", priority: 6},
+  {name: "europa league", country: "europe", priority: 7},
 ]
 
 comps.each do |comp|
