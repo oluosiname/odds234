@@ -6,4 +6,4 @@
   reset_events:
     cron: "0 2 */2 * *"
     class: ResetEventsWorker
-    enabled: true
+    enabled: false
