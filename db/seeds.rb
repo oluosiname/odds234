@@ -16,6 +16,9 @@ comps = [
   {name: "eredivisie", country: "netherlands", priority: 8},
   {name: "primeira liga", country: "portugal", priority: 9},
   {name: "belgium first division a", country: "belgium", priority: 10},
+  {name: "russia premier league", country: "russia", priority: 12},
+  {name: "scotland premiership", country: "scotland", priority: 11},
+  # {name: "belgium first division a", country: "turkey", priority: 13},
 ]
 
 comps.each do |comp|
