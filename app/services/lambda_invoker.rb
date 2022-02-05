@@ -2,6 +2,7 @@
 
 class LambdaInvoker < ApplicationService
   def initialize(func:, async:, payload: '{}')
+    super
     @func = func
     @async = async
   end
@@ -11,9 +12,9 @@ class LambdaInvoker < ApplicationService
     args.merge({ invocation_type: 'Event' }) if @async
     resp = client.invoke(args)
 
-    puts resp
+    Rails.logger.debug resp
 
-    puts resp.to_h
+    Rails.logger.debug resp.to_h
   end
 
   private

@@ -9,7 +9,7 @@ class Event < ApplicationRecord
   validates :home_team, presence: true
   validates :away_team, presence: true
 
-  scope :future, -> { where('starts_at > ?', Time.now).order(:starts_at) }
+  scope :future, -> { where('starts_at > ?', Time.zone.now).order(:starts_at) }
 
   scope :past, -> { where('starts_at < ?', 2.days.ago) }
 

@@ -47,7 +47,7 @@ class EventProcessor < ApplicationService
 
   def starts_at(date, time)
     dateString = date == 'today' ? Date.today : "#{date}.#{Date.today.year}"
-    DateTime.parse("#{dateString} #{time}")
+    Time.zone.parse("#{dateString} #{time}")
   rescue => e
     binding.pry
   end
