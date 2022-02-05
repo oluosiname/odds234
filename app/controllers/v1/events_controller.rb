@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class V1::EventsController < ApplicationController
   before_action :authenticate
 
@@ -8,13 +10,13 @@ class V1::EventsController < ApplicationController
     relation = relation.by_competition(params[:competition]) if params[:competition]
     relation = relation.by_team(params[:search]) if params[:search]
 
-    @events = relation.all.group_by(&:competition).sort_by{|competition, _extras| competition.priority }
+    @events = relation.all.group_by(&:competition).sort_by { |competition, _extras| competition.priority }
   end
 
   def show
     @event = Event.find_by(uid: params[:id])
 
-    return render staus: 404 unless @event
+    return render(status: :not_found) unless @event
   end
 
   private
@@ -22,7 +24,8 @@ class V1::EventsController < ApplicationController
   def authenticate
     return head :unauthorized unless token
 
-    return head :unauthorized unless ActiveSupport::SecurityUtils.secure_compare(token, Rails.application.credentials.api_key)
+    return head :unauthorized unless ActiveSupport::SecurityUtils.secure_compare(token,
+      Rails.application.credentials.api_key)
   end
 
   def token

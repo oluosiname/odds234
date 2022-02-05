@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class V1::WebhooksController < ApplicationController
   include ActionController::HttpAuthentication::Token::ControllerMethods
 
@@ -16,17 +18,18 @@ class V1::WebhooksController < ApplicationController
     end
     head :ok
   end
-  
+
   private
 
   def verify_webhook
     request.body.rewind
     data = request.body.read
-    hmac_header =  request.headers["X-Authorization-Content-SHA256"]
+    hmac_header = request.headers['X-Authorization-Content-SHA256']
 
-    calculated_hmac = Base64.strict_encode64(OpenSSL::HMAC.digest('sha256', Rails.application.credentials.webhook_key, data))
-    if !ActiveSupport::SecurityUtils.secure_compare(calculated_hmac, hmac_header)
-      return head :forbidden
+    calculated_hmac = Base64.strict_encode64(OpenSSL::HMAC.digest('sha256', Rails.application.credentials.webhook_key,
+      data))
+    unless ActiveSupport::SecurityUtils.secure_compare(calculated_hmac, hmac_header)
+      head :forbidden
     end
   end
 end

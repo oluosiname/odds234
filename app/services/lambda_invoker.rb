@@ -1,13 +1,14 @@
+# frozen_string_literal: true
+
 class LambdaInvoker < ApplicationService
-  def initialize(func: , async: , payload: "{}")
+  def initialize(func:, async:, payload: '{}')
     @func = func
     @async = async
   end
 
-
   def call
     args = { function_name: @func, payload: @payload }
-    args.merge({ invocation_type: "Event" }) if @async
+    args.merge({ invocation_type: 'Event' }) if @async
     resp = client.invoke(args)
 
     puts resp

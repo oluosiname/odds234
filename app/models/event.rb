@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Event < ApplicationRecord
   include Uidable
 
@@ -7,39 +9,37 @@ class Event < ApplicationRecord
   validates :home_team, presence: true
   validates :away_team, presence: true
 
-  scope :future, -> { where("starts_at > ?", Time.now).order(:starts_at) }
+  scope :future, -> { where('starts_at > ?', Time.now).order(:starts_at) }
 
-  scope :past, -> { where("starts_at < ?", 2.days.ago) }
+  scope :past, -> { where('starts_at < ?', 2.days.ago) }
 
-  scope :by_competition, -> (competition_name){
-    joins(:competition).where("LOWER(competitions.name) =  ?", competition_name.downcase)
+  scope :by_competition, ->(competition_name) {
+    joins(:competition).where('LOWER(competitions.name) =  ?', competition_name.downcase)
   }
 
-  scope :by_country, -> (country){
-    joins(:competition).where("LOWER(competitions.country) =  ?", country.downcase)
+  scope :by_country, ->(country) {
+    joins(:competition).where('LOWER(competitions.country) =  ?', country.downcase)
   }
 
-  scope :by_team, -> (search){
-    where("LOWER(home_team) LIKE  ? OR LOWER(away_team) LIKE ?", "%#{search.downcase}%", "%#{search.downcase}%")
+  scope :by_team, ->(search) {
+    where('LOWER(home_team) LIKE  ? OR LOWER(away_team) LIKE ?', "%#{search.downcase}%", "%#{search.downcase}%")
   }
 
-  scope :by_date, -> (date) { where("DATE(starts_at) = ?",date) }
+  scope :by_date, ->(date) { where('DATE(starts_at) = ?', date) }
 
   def set_top_odds
     home = odds.maximum(:home)
     draw = odds.maximum(:draw)
     away = odds.maximum(:away)
 
-    self.update(top_odds: { home: home, draw: draw, away: away })
+    update(top_odds: { home: home, draw: draw, away: away })
   end
 
-  def competition_name
-    competition.name
-  end
+  delegate :name, to: :competition, prefix: true
 
   def true_date
-    return "Today" if starts_at.to_date == Date.today
+    return 'Today' if starts_at.to_date == Date.today
 
-    starts_at.strftime("%-d %b")
+    starts_at.strftime('%-d %b')
   end
 end

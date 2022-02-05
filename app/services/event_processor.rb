@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class EventProcessor < ApplicationService
-  def initialize(data: , competition_id: ,bookmaker: )
+  def initialize(data:, competition_id:, bookmaker:)
     @competition_id = competition_id
     @data = data
     @bookmaker = bookmaker
@@ -9,6 +11,7 @@ class EventProcessor < ApplicationService
     if @data[:home_team].blank? || @data[:away_team].blank?
       return { success: false }
     end
+
     result = ActiveRecord::Base.transaction do
       event = Event.find_or_initialize_by(
         competition_id: @competition_id,
@@ -30,7 +33,7 @@ class EventProcessor < ApplicationService
 
   def event_params
     {
-      starts_at: starts_at(@data[:date], @data[:time])
+      starts_at: starts_at(@data[:date], @data[:time]),
     }
   end
 
@@ -38,10 +41,9 @@ class EventProcessor < ApplicationService
     {
       home: outcomes[:home_odds],
       draw: outcomes[:draw_odds],
-      away: outcomes[:away_odds]
+      away: outcomes[:away_odds],
     }
   end
-
 
   def starts_at(date, time)
     dateString = date == 'today' ? Date.today : "#{date}.#{Date.today.year}"
